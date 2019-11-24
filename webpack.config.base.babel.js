@@ -1,5 +1,5 @@
 export default {
-  mode: 'development',
+  mode: process.env.NODE_ENV,
   entry: './src/index.tsx',
   output: {
     path: `${__dirname}/dist`,
@@ -15,10 +15,5 @@ export default {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
-  },
-  devServer: {
-    contentBase: './dist',
-    hot: true,
-    inline: true,
   },
 };
