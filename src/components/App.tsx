@@ -4,6 +4,7 @@ import { PhotoCard } from './PhotoCard';
 
 export const App: React.FC<{}> = () => {
   const [photos, setPhotos] = React.useState<Photo[]>([]);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   return (
     <div style={{ width: '800px', margin: '80px auto' }}>
@@ -11,11 +12,14 @@ export const App: React.FC<{}> = () => {
       <div style={{ marginBottom: '16px' }}>
         <button
           onClick={async () => {
+            setIsLoading(true);
+            setPhotos([]);
             const photos = await getPhotos(1).catch(e => {
               console.error('get photos error!', e);
-              return [];
+              return [] as Photo[];
             });
             setPhotos(photos);
+            setIsLoading(false);
           }}
         >
           get photos
@@ -28,9 +32,11 @@ export const App: React.FC<{}> = () => {
           flexWrap: 'wrap',
         }}
       >
-        {photos.map((p, i) => {
-          return <PhotoCard photo={p} key={i} />;
-        })}
+        {isLoading && <>Loading...</>}
+        {!isLoading &&
+          photos.map((p, i) => {
+            return <PhotoCard photo={p} key={i} />;
+          })}
       </div>
     </div>
   );
