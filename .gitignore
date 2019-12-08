@@ -1,2 +1,5 @@
 node_modules
 dist/main.js
+dist/workbox*
+dist/precache-manifest*
+dist/sw.js
